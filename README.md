@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SYSWIZ PropertyCare
 
 > Smart property maintenance management, starting with student hostels.
@@ -60,3 +61,7 @@ TBD
 ## Project Status
 
 🚧 Currently under development.
+=======
+# syswiz-propertycare
+SYSWIZ PropertyCare is a smart maintenance platform that helps hostel students report and track maintenance issues while enabling management to efficiently assign and resolve them.
+>>>>>>> 77b513348078a1c344d8c5007393110c657363e4
