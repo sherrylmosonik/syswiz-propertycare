@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ledger — Hostel Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-crest">HM</span>
+      <div>
+        <div class="brand-name">Ledger</div>
+        <div class="brand-sub">Hostel Management</div>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="dashboard">Dashboard</button>
+      <button class="tab" data-tab="rooms">Rooms</button>
+      <button class="tab" data-tab="students">Students</button>
+      <button class="tab" data-tab="fees">Fees</button>
+      <button class="tab" data-tab="complaints">Complaints</button>
+    </nav>
+  </header>
+
+  <main class="container">
+
+    <!-- ============================================================ DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="view-head">
+        <h1>Overview</h1>
+        <p class="sub">Today's snapshot of the block.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-n" id="stat-rooms">0</div>
+          <div class="stat-l">Total rooms</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n" id="stat-occupied">0</div>
+          <div class="stat-l">Beds occupied</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n" id="stat-vacant">0</div>
+          <div class="stat-l">Beds vacant</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n stat-warn" id="stat-due">0</div>
+          <div class="stat-l">Fees overdue</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-n stat-warn" id="stat-complaints">0</div>
+          <div class="stat-l">Open complaints</div>
+        </div>
+      </div>
+
+      <div class="dash-cols">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Occupancy by floor</h2>
+          </div>
+          <div id="floor-bars" class="floor-bars"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Recent complaints</h2>
+            <button class="link-btn" data-goto="complaints">View all</button>
+          </div>
+          <ul class="mini-list" id="recent-complaints"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ ROOMS -->
+    <section class="view" id="view-rooms">
+      <div class="view-head">
+        <h1>Rooms</h1>
+        <p class="sub">Every plaque shows capacity as filled and open bed slots.</p>
+      </div>
+      <div class="room-grid" id="room-grid"></div>
+    </section>
+
+    <!-- ============================================================= STUDENTS -->
+    <section class="view" id="view-students">
+      <div class="view-head">
+        <h1>Students</h1>
+        <p class="sub">Allocate a room when you register a new resident.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Register a student</h2></div>
+        <form id="student-form" class="grid-form">
+          <div class="field">
+            <label for="s-name">Full name</label>
+            <input type="text" id="s-name" required />
+          </div>
+          <div class="field">
+            <label for="s-phone">Phone</label>
+            <input type="text" id="s-phone" required />
+          </div>
+          <div class="field">
+            <label for="s-room">Room</label>
+            <select id="s-room" required></select>
+          </div>
+          <div class="field">
+            <label for="s-fee">Term fee (KES)</label>
+            <input type="number" id="s-fee" min="0" value="8000" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Add student</button>
+        </form>
+        <p class="form-msg" id="student-msg"></p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Roster</h2>
+          <span class="count-pill" id="student-count"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Room</th><th>Phone</th><th>Fee status</th><th></th></tr>
+            </thead>
+            <tbody id="students-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================= FEES -->
+    <section class="view" id="view-fees">
+      <div class="view-head">
+        <h1>Fees</h1>
+        <p class="sub">Mark payments as they come in.</p>
+      </div>
+
+      <div class="panel">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Name</th><th>Room</th><th>Amount</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody id="fees-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================== COMPLAINTS -->
+    <section class="view" id="view-complaints">
+      <div class="view-head">
+        <h1>Complaints</h1>
+        <p class="sub">Maintenance and issue log, resident-reported.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h2>Log a complaint</h2></div>
+        <form id="complaint-form" class="grid-form">
+          <div class="field">
+            <label for="c-student">Student</label>
+            <select id="c-student" required></select>
+          </div>
+          <div class="field field-wide">
+            <label for="c-text">Issue</label>
+            <input type="text" id="c-text" placeholder="e.g. Leaking tap in the shared bathroom" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Log it</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>All complaints</h2>
+          <span class="count-pill" id="complaint-count"></span>
+        </div>
+        <ul class="complaint-list" id="complaint-list"></ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">Ledger runs entirely in your browser for this preview — no data leaves the page.</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
